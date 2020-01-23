@@ -10,10 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.AutoSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.GripSubsystem;
-
-
+import frc.robot.subsystems.AutoSubsystem;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
   
   DriveSubsystem drive_subsystem = new DriveSubsystem();
   GripSubsystem grip_subsystem = new GripSubsystem();
+  AutoSubsystem auto_subsystem = new AutoSubsystem();
   // private static final int deviceID = 1;
   // private CANSparkMax m_motorSparkMax;
   Joystick joy1 = new Joystick(0);
@@ -120,7 +121,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    // drive_subsystem
+
+    auto_subsystem.driveForward(2.0);
+    auto_subsystem.driveStop();
   }
 
   @Override
