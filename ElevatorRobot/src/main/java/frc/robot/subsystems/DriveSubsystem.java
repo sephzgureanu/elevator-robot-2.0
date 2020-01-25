@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
 
 
@@ -25,7 +26,7 @@ public class DriveSubsystem extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public DriveSubsystem(){
-    SpeedController m_frontLeft = new WPI_TalonSRX(6);
+    SpeedController m_frontLeft = new WPI_TalonSRX(6); //has the pigeon connected in AutoSubsystem
     SpeedController m_rearLeft = new WPI_TalonSRX(1);
     SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
  

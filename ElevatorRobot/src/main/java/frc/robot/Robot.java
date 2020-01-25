@@ -121,9 +121,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-
-    auto_subsystem.driveForward(2.0);
-    auto_subsystem.driveStop();
+    // auto_subsystem.driveForward(2.0);
+    // auto_subsystem.driveStop();
+    
+    auto_subsystem.getYaw();
   }
 
   @Override

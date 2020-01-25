@@ -10,27 +10,59 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
-public class AutoSubsystem extends SubsystemBase {
-  DriveSubsystem drive_subsystem = new DriveSubsystem();
-  Timer timer;
+
+public class AutoSubsystem extends SubsystemBase                    {
+  DriveSubsystem drive_subsystem = new DriveSubsystem()             ;
+  Timer timer                                                       ;
+  PigeonIMU pigeon                                                  ;
+  PigeonIMU.GeneralStatus genStat                                   ;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public void driveForward(double time){
-    
-    timer.start();
-    if (timer.get() < time){
-    drive_subsystem.tankDrive(1.0, 1.0); }
-    
-  }
+  public AutoSubsystem()                                            {
+    timer = new Timer()                                             ;
+    TalonSRX m_frontLeft = new WPI_TalonSRX(6)                      ;
+    pigeon = new PigeonIMU(m_frontLeft)                             ; //the pigeon is connected to the Talon above
+    genStat = new PigeonIMU.GeneralStatus()                         ;
+                                                                    }
 
-  public void driveBackwards(){
-    drive_subsystem.tankDrive(-1.0, -1.0);
-  }
+  public void driveForward(double time)                             {
+    
+    timer.start()                                                   ;
+    if (timer.get() < time)                                         {
+    drive_subsystem.tankDrive(1.0, 1.0)                             ;
+                                                                    }
+    timer.stop()                                                    ;
+    timer.reset()                                                   ;
+    
+                                                                    }
 
-  public void driveStop(){
-    drive_subsystem.tankDrive(0.0, 0.0);
-  }
+  public void driveBackwards()                                      {
+    drive_subsystem.tankDrive(-1.0, -1.0)                           ;
+                                                                    }
+
+  public void driveStop()                                           {
+    drive_subsystem.tankDrive(0.0, 0.0)                             ;
+                                                                    }
+
+  public void pigeonStat()                                          {
+    pigeon.getGeneralStatus(genStat)                                ;
+    System.out.println("General status " + genStat)                 ;
+                                                                    }
+
+  public void getYaw()                                              {
+    double[] ypr = new double[3]                                    ;
+    pigeon.getYawPitchRoll(ypr)                                     ;
+    System.out.println("Yaw= " + ypr[0])                            ;
+                                                                    }
+
+  public void setAngle(double newAngle)                             {
+    pigeon.setYaw(newAngle)                                         ;
+    pigeon.setFusedHeading(newAngle)                                ;
+                                                                    }
   
-}
+                                                                    } //hope you like my brackets
