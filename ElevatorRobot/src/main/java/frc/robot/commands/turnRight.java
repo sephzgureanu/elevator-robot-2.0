@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AutoSubsystem;
 
 public class turnRight extends CommandBase {
+
   private final AutoSubsystem auto_subsystem;
   /**
    * Creates a new turnRight.
@@ -25,7 +26,7 @@ public class turnRight extends CommandBase {
   @Override
   public void initialize() {
     //get value from pigeon
-    auto_subsystem.getYaw(pigeonValue);
+   auto_subsystem.getYaw();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
