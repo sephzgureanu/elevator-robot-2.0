@@ -55,7 +55,7 @@ public class AutoSubsystem extends SubsystemBase {
     System.out.println("General status " + genStat);
     }
 
-  public void getYaw(){
+  public double getYaw(){
     if (loop++ > 0){
       loop = 0;
     double[] ypr = new double[3];
