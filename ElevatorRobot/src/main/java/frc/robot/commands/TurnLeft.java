@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TurnRight extends CommandBase {
+public class TurnLeft extends CommandBase {
   double pigeonVal;
   double pigeonValnit;
 
   
   private final DriveSubsystem drive_subsystem;
 
-  public TurnRight(DriveSubsystem subsystem) {
+  public TurnLeft(DriveSubsystem subsystem) {
     
     drive_subsystem = subsystem;
     addRequirements(drive_subsystem);
@@ -36,9 +36,8 @@ public class TurnRight extends CommandBase {
   @Override
   public void execute() {
     pigeonVal= drive_subsystem.getYaw();
-    drive_subsystem.tankDrive(1.0, -1.0);
-    //if (pigeonVal > pigeonValnit-90) {
-    //} 
+    drive_subsystem.tankDrive(-1.0, 1.0);
+    
 
   }
 
@@ -51,6 +50,6 @@ public class TurnRight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pigeonVal < pigeonValnit-90;
+    return pigeonVal > pigeonValnit + 90;
   }
 }

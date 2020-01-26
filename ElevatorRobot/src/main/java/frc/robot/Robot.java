@@ -10,10 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.AutoSubsystem;
+import frc.robot.commands.TurnLeft;
+import frc.robot.commands.TurnRight;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.GripSubsystem;
-import frc.robot.subsystems.AutoSubsystem;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   
   DriveSubsystem drive_subsystem = new DriveSubsystem();
   GripSubsystem grip_subsystem = new GripSubsystem();
-  AutoSubsystem auto_subsystem = new AutoSubsystem();
+  //TurnRight turn_right = new TurnRight(auto_subsystem, drive_subsystem);
   // private static final int deviceID = 1;
   // private CANSparkMax m_motorSparkMax;
   Joystick joy1 = new Joystick(0);
@@ -55,7 +55,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    
+    //m_autonomousCommand = new TurnRight(drive_subsystem);
+    m_autonomousCommand = new TurnLeft(drive_subsystem);
 
 
     // m_motorSparkMax = new CANSparkMax(deviceID, MotorType.kBrushless);
@@ -103,17 +104,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+      m_autonomousCommand.schedule();}
 
-   
-
-
-
-    }
   }
 
   /**
@@ -121,11 +117,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    // auto_subsystem.driveForward(2.0);
-    // auto_subsystem.driveStop();
-
-    auto_subsystem.getYaw();
-    auto_subsystem.pigeonStat();
+    
+    
+    
   }
 
   @Override
