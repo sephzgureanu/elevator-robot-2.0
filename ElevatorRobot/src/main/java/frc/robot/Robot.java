@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
  */
 public class Robot extends TimedRobot {
   
+  
   DriveSubsystem drive_subsystem = new DriveSubsystem();
   GripSubsystem grip_subsystem = new GripSubsystem();
   //TurnRight turn_right = new TurnRight(auto_subsystem, drive_subsystem);
@@ -163,6 +164,8 @@ public class Robot extends TimedRobot {
     grip_subsystem.gripLift(gripLiftButton,gripLiftButtonReleased); //circle
     grip_subsystem.elevator(elevatorButton,elevatorButtonReleased); //triangle
     grip_subsystem.lowerElevator(lowElButton,lowElButtonReleased); //l1
+    drive_subsystem.getVelocityLeft();
+    drive_subsystem.getVelocityRight();
     
 
 

@@ -103,7 +103,7 @@ public class GripSubsystem extends SubsystemBase {
   }
   public void gripLift(boolean isPressed, boolean isReleased){ //lifting and lowering the grip with toggle
     a_potVal = a_potentiometer.get();
-    System.out.println(a_potVal);
+    // System.out.println(a_potVal);
 
     if(isPressed && a_potVal<111 && a_potVal>0){ 
 

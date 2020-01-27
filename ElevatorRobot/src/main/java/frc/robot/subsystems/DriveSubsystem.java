@@ -27,25 +27,32 @@ public class DriveSubsystem extends SubsystemBase{
   PigeonIMU.GeneralStatus genStat;
   int loop = 0;
   double[] ypr;
+  TalonSRX m_rearLeftE;
+  TalonSRX m_frontRightE;
+  double velocity;
+  double velocity1;
   // SpeedController m_falcon;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  
   public DriveSubsystem(){
-    SpeedController m_frontLeft = new WPI_TalonSRX(6); //has the pigeon connected in AutoSubsystem
+    SpeedController m_frontLeft = new WPI_TalonSRX(6); 
     SpeedController m_rearLeft = new WPI_TalonSRX(1);
     SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
 
  
-    SpeedController m_frontRight = new WPI_TalonSRX(4);
+    SpeedController m_frontRight = new WPI_TalonSRX(4); 
     SpeedController m_rearRight = new WPI_TalonSRX(7);
     SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
 
-    TalonSRX m_frontLeftP = new WPI_TalonSRX(6);
-    pigeon = new PigeonIMU(m_frontLeftP); //the pigeon is connected to the Talon above
+    TalonSRX m_frontLeftP = new WPI_TalonSRX(6); //pigeon
+    m_rearLeftE = new WPI_TalonSRX(1); //encoder
+    m_frontRightE = new WPI_TalonSRX(4); //encoder
+    pigeon = new PigeonIMU(m_frontLeftP); //the pigeon is connected to the Talon(6) 
     genStat = new PigeonIMU.GeneralStatus();
     ypr = new double[3];
+    m_rearLeftE.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    m_frontRightE.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    
 
-   
     // m_falcon = new WPI_TalonFX(0);
  
     m_drive = new DifferentialDrive(m_left, m_right);
@@ -63,10 +70,8 @@ public class DriveSubsystem extends SubsystemBase{
       }
   
     public double getYaw(){
-      //if (loop++ > 0){
-        //loop = 0;
         pigeon.getYawPitchRoll(ypr);
-        System.out.println("Yaw= " + ypr[0]);//}
+        System.out.println("Yaw= " + ypr[0]);
         return ypr[0];
         
       }
@@ -75,6 +80,18 @@ public class DriveSubsystem extends SubsystemBase{
       pigeon.setYaw(newAngle);
       pigeon.setFusedHeading(newAngle);
      }
+
+    public double getVelocityLeft(){
+      velocity = m_rearLeftE.getSelectedSensorVelocity(0);
+      System.out.println("Left velocity " + velocity);
+      return velocity;
+    }
+
+    public double getVelocityRight(){
+      velocity1 = m_frontRightE.getSelectedSensorVelocity(0);
+      System.out.println("Right velocity " + velocity1);
+      return velocity1;
+    }
 
       
 
